@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to Image Converter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+</head>
+<body>
+    <input type="file" id="pdfInput" accept=".pdf" onchange="handleFileSelect()">
+    <br>
+    <button onclick="convertToImage()">Convert to Image</button>
+    <br>
+    <div id="pdfContainer"></div>
+
+    <script>
+        let pdfData = null;
+
+        function handleFileSelect() {
+            const pdfInput = document.getElementById('pdfInput');
+            const file = pdfInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // Save the PDF data for later use
+                    pdfData = e.target.result;
+                    displayPdf();
+                };
+
+               var a =  reader.readAsArrayBuffer(file);
+               console.log(a)
+            }
+        }
+
+        function displayPdf() {
+            // Display the PDF using pdfjs-dist
+            pdfjsLib.getDocument({ data: pdfData }).promise.then(function (pdf) {
+                pdf.getPage(1).then(function (page) {
+                    const scale = 1.5;
+                    const viewport = page.getViewport({ scale });
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    const context = canvas.getContext('2d');
+
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport,
+                    };
+
+                    page.render(renderContext);
+
+                    const pdfContainer = document.getElementById('pdfContainer');
+                    pdfContainer.innerHTML = '';
+                    pdfContainer.appendChild(canvas);
+                });
+            });
+        }
+
+        function convertToImage() {
+            if (pdfData) {
+                const pdfContainer = document.getElementById('pdfContainer');
+
+                // Use html2canvas to capture the content of the PDF container
+                html2canvas(pdfContainer).then(function (canvas) {
+                    // Convert the canvas to a data URL representing a PNG image
+                    const imageDataURL = canvas.toDataURL('image/png');
+                    console.log('Image Data URL:', imageDataURL);
+                    
+                    // Optionally, you can display the image on the page
+                    const img = document.createElement('img');
+                    img.src = imageDataURL;
+                    document.body.appendChild(img);
+                });
+            } else {
+                console.error('No PDF file selected.');
+            }
+        }
+    </script>
+</body>
+</html>
