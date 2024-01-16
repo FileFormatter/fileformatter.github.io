@@ -1,13 +1,20 @@
 angular.module("myApp", []).controller("myCtrl", [
   "$scope",
   function ($scope) {
+
+
+
+    $scope.cardContent = [{'name':'Image Convention','icon':'fa fa-file-image-o','description':'Seamlessly convert images online with PNG, JPG, GIF, WEBP, HEIC support'},{'name':'PDF convention','icon':'fa fa-file-pdf-o'},{'name':'Base 64 Conversion','icon':'fa fa-key'},{'name':'JSON Conversion','icon':'fa fa-file-code-o'}]
+    console.log($scope.cardContent)
+
+    $scope.imageData = ""
   
 
-    var selectedFile = document.getElementById("files");
+    // var selectedFile = document.getElementById("files");
 
-    var chooseFile = document.querySelector("choose-file");
+    // var chooseFile = document.querySelector("choose-file");
 
-    var imgPreview = document.getElementById("img-preview");
+    // var imgPreview = document.getElementById("img-preview");
 
 
     function dataURLToBlob(dataURL) {
@@ -23,57 +30,57 @@ angular.module("myApp", []).controller("myCtrl", [
   }
 
     // Add an event listener to handle file selection
-    selectedFile.addEventListener("change", function (event) {
-      // Use $scope.$apply() to update AngularJS bindings
-      $scope.$apply(function () {
-        // Assign the selected files to the $scope variable
-        $scope.fileList = event.target.files;
-        //getImgData($scope.fileList);
-        console.log(event.target.files[0]);
-        var selectedFile = event.target.files[0];
-        // Check if a file was selected
-        if (selectedFile) {
-          // Create a FileReader
-          const reader = new FileReader();
+    // selectedFile.addEventListener("change", function (event) {
+    //   // Use $scope.$apply() to update AngularJS bindings
+    //   $scope.$apply(function () {
+    //     // Assign the selected files to the $scope variable
+    //     $scope.fileList = event.target.files;
+    //     //getImgData($scope.fileList);
+    //     console.log(event.target.files[0]);
+    //     var selectedFile = event.target.files[0];
+    //     // Check if a file was selected
+    //     if (selectedFile) {
+    //       // Create a FileReader
+    //       const reader = new FileReader();
 
-          reader.onload = function (e) {
-            const img = new Image();
-            img.src = e.target.result;
-            console.log(e.target.result,'test');
+    //       reader.onload = function (e) {
+    //         const img = new Image();
+    //         img.src = e.target.result;
+    //         console.log(e.target.result,'test');
 
 
-            img.onload = function () {
-                const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
+    //         img.onload = function () {
+    //             const canvas = document.createElement('canvas');
+    //             canvas.width = img.width;
+    //             canvas.height = img.height;
 
-                const context = canvas.getContext('2d');
-                context.drawImage(img, 0, 0);
+    //             const context = canvas.getContext('2d');
+    //             context.drawImage(img, 0, 0);
 
-                // Convert the image to PNG by using the "toDataURL" method
-                const pngDataUrl = canvas.toDataURL('image/png');
+    //             // Convert the image to PNG by using the "toDataURL" method
+    //             const pngDataUrl = canvas.toDataURL('image/png');
 
-                $scope.$apply(function(){
-                  $scope.imageData = pngDataUrl;
-                  $scope.convertedBlob =  dataURLToBlob(pngDataUrl)
-                  console.log($scope.imageData)
-                })
+    //             $scope.$apply(function(){
+    //               $scope.imageData = pngDataUrl;
+    //               $scope.convertedBlob =  dataURLToBlob(pngDataUrl)
+    //               console.log($scope.imageData)
+    //             })
 
               
 
-                console.log(pngDataUrl)
+    //             console.log(pngDataUrl)
 
-                // Display the converted PNG image
-                //outputImage.src = pngDataUrl;
-            };
-        };
+    //             // Display the converted PNG image
+    //             //outputImage.src = pngDataUrl;
+    //         };
+    //     };
 
-        // Read the selected JPG file
-        reader.readAsDataURL(selectedFile);
+    //     // Read the selected JPG file
+    //     reader.readAsDataURL(selectedFile);
   
-        }
-      });
-    });
+    //     }
+    //   });
+    // });
 
     $scope.downloadPNG = function() {
       if ($scope.convertedBlob) {
