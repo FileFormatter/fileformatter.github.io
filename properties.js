@@ -3,6 +3,34 @@ angular.module("myApp", []).controller("myCtrl", [
   function ($scope) {
 
 
+    var path = "https://www.reddit.com/r/" + 'programming' + ".json";
+    console.log(path)
+    axios.get(path).then(
+        (response) => {
+            var result = response.data;
+
+            getData(result);
+        },
+        (error) => {
+            console.log(error);
+        }
+    );
+
+
+    function getData(value) {
+
+        $scope.$apply(function(){
+            $scope.techData = value.data.children
+            $scope.techData.shift()
+            console.log(value.data.children)
+        })
+     
+
+    }
+
+    
+
+
 
     $scope.cardContent = [{'name':'Image Convention','icon':'fa fa-file-image-o','description':'Seamlessly convert images online with PNG, JPG, GIF, WEBP, HEIC support'},{'name':'PDF convention','icon':'fa fa-file-pdf-o','description':'Access all in one tool to read, edit, compress, combine, convert and remove pages from PDF'},{'name':'Base 64 Conversion','icon':'fa fa-key','description':'Our user-friendly site provides easy Base64 encoding and decoding tools.'},{'name':'JSON Conversion','icon':'fa fa-file-code-o','description':'Utilize a web tool to view, edit, format, repair, and share JSON data'}]
     console.log($scope.cardContent)
@@ -106,3 +134,4 @@ angular.module("myApp", []).controller("myCtrl", [
 
   },
 ]);
+
