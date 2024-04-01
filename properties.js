@@ -135,3 +135,15 @@ angular.module("myApp", []).controller("myCtrl", [
   },
 ]);
 
+
+angular.module("htmlApp", []).controller("htmlCtrl", [
+    "$scope",
+    function ($scope) {
+        $scope.htmlValue = ""
+
+        $scope.viewHtml = function(){
+            document.getElementById('htmlData').innerHTML = $scope.htmlValue
+        }
+    }])
+
+
