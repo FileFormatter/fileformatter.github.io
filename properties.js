@@ -2,7 +2,7 @@ angular.module("myApp", []).controller("myCtrl", [
   "$scope",
   function ($scope) {
 
-
+    $scope.htmlValue = ""
     var path = "https://www.reddit.com/r/" + 'programming' + ".json";
     console.log(path)
     axios.get(path).then(
