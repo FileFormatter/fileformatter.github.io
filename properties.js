@@ -139,11 +139,83 @@ angular.module("myApp", []).controller("myCtrl", [
 angular.module("htmlApp", []).controller("htmlCtrl", [
     "$scope",
     function ($scope) {
+   
         $scope.htmlValue = ""
+        $scope.displayTextArea = false
+        $scope.formattedOut = ""
 
         $scope.viewHtml = function(){
+            $scope.displayTextArea = false
+            $scope.formattedOut = ""
             document.getElementById('htmlData').innerHTML = $scope.htmlValue
         }
+
+        $scope.formatHtml = function(html){
+
+            
+ 
+            $scope.displayTextArea = true
+            const formattedHTML = html_beautify(html);
+            console.log(formattedHTML)
+            document.getElementById('htmlData').innerHTML = ""
+            $scope.formattedOut = formattedHTML
+          // document.getElementById('formattedOutput').value = formattedHTML
+        
+            
+        }
+
+         $scope.minifyHTML= function(html) {
+            $scope.displayTextArea = true
+            const minifiedHtml = html.replace(/[\r\n\t]/g, ' ')
+                       .replace(/<!--.*?-->/g, '')
+                       .replace(/\s{2,}/g, ' ')
+                       .replace(/>\s+</g, '><');
+                       console.log(html,minifiedHtml)
+                       document.getElementById('htmlData').innerHTML = ""
+                    console.log( document.getElementById('formattedOutput'))
+                    $scope.formattedOut = minifiedHtml
+                   // document.getElementById('formattedOutput').value = minifiedHtml
+
+        }
+
+
+        $scope.copyContent = function() {
+            // Get the text fiel
+          
+             // Copy the text inside the text field
+            navigator.clipboard.writeText($scope.formattedOut);
+          
+            // Alert the copied text
+            alert("Copied the text: " );
+          }
+
+        
     }])
+
+
+
+    angular.module("base64app", []).controller("base64", [
+        "$scope",
+        function ($scope) {
+            
+        
+    
+            $scope.base64UserValue = ""
+            $scope.conversionType = "file"
+
+            $scope.test = function(){
+                console.log($scope.conversionType)
+            }
+
+
+            $scope.encodeDecodeBase64 = function(type){
+                console.log(type,$scope.base64UserValue)
+                $scope.base64ConvertedValue = type == 'encode' ? window.btoa($scope.base64UserValue) :  window.atob($scope.base64UserValue)
+      
+            }
+        }])
+
+
+    
 
 
