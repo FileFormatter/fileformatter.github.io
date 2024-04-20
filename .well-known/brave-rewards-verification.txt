@@ -1,0 +1,4 @@
+This is a Brave Creators publisher verification file.
+
+Domain: fileformatter.github.io
+Token: c1d25b53bc075521e468d871f7c12a7e24634973025b196d8eed2d9d6bb70c41
