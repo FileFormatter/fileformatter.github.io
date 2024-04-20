@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor with Autocomplete</title>
+    <link rel="stylesheet" href="theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/darcula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/show-hint.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <textarea id="code" rows="10" cols="80"></textarea>
+    <button id="runButton" class="mt-1 btn btn-primary">Run</button>
+    <div id="output"></div> <!-- This is where output will be displayed -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/javascript/javascript.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/hint/show-hint.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+        mode: 'javascript',
+        theme: 'darcula',
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        extraKeys: { 'Ctrl-Space': 'autocomplete' },
+    });
+
+    document.getElementById('runButton').addEventListener('click', function () {
+        const code = editor.getValue();
+        const outputDiv = document.getElementById('output');
+
+        // Clear previous output
+        outputDiv.innerText = '';
+
+        // Override console.log to capture output
+        const originalConsoleLog = console.log;
+        console.log = function (...args) {
+            const message = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' ');
+            outputDiv.innerText += message + '\n';
+            originalConsoleLog.apply(console, args);
+        };
+
+        try {
+            // Execute the code
+            eval(code);
+        } catch (error) {
+            outputDiv.innerText = 'Error: ' + error.message;
+        } finally {
+            // Restore original console.log
+            console.log = originalConsoleLog;
+        }
+    });
+
+    // CodeMirror.showHint(editor, CodeMirror.hint.javascript);
+
+    // Enable JavaScript autocomplete suggestions
+    editor.setOption('hintOptions', { hint: CodeMirror.hint.javascript });
+
+    CodeMirror.commands.autocomplete = function (cm) {
+        CodeMirror.showHint(cm, CodeMirror.hint.javascript);
+    };
+});
+
+
+    </script>
+</body>
+</html>
