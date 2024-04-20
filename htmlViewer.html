@@ -2,33 +2,64 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-  <meta name="keywords" content="HTML Viewer, HTML Viewer Online, HTML preview online, HTML viewer online, Bootstrap Viewer, HTML online complier, Bootstrap online complier"/>
-    <meta name="description" content="Preview HTML Bootstrap Online"/>
-   <meta name="robots" content="index, follow">
- <title>HTML viewer</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="keywords"
+    content="HTML Viewer, HTML Viewer Online, HTML preview online, HTML viewer online, Bootstrap Viewer, HTML online complier, Bootstrap online complier" />
+  <meta name="description" content="Preview HTML Bootstrap Online" />
+  <meta name="robots" content="index, follow">
+  <title>HTML viewer</title>
 
 
 
-    <!-- Theme CSS for the header class -->
-    <link rel="stylesheet" href="theme.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="properties.js"> </script>
-    <link rel="stylesheet" href="file-forge.css">
+  <!-- Theme CSS for the header class -->
+  <link rel="stylesheet" href="theme.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.11.0/beautify-html.min.js"></script>
+  <script src="properties.js"> </script>
+  <link rel="stylesheet" href="file-forge.css">
 
 
-    <title></title>
+  <title></title>
 </head>
 
 <body ng-app="htmlApp" ng-controller="htmlCtrl">
-    <main>
-    <h1>HTML Viewer</h1>
-  <textarea name="" id="" cols="30" rows="10" ng-change="viewHtml()" ng-model="htmlValue"></textarea>
-  <div id='htmlData' ></div>
-    </main>
+  <main>
+
+    <div class="  container">
+      <h1>HTML Viewer</h1>
+      <div class="row d-flex flex-row">
+        <div class="col-5 ">
+          <textarea name="" id="htmlinput" cols="67" rows="25" ng-change="viewHtml()" ng-model="htmlValue"
+            style="resize: none; border-radius: 5px; float: left; border-color: transparent;"></textarea>
+        </div>
+
+        <div class="col-1  " style="padding: 0px;">
+          <button type="button" class="btn btn-primary mt-2" ng-click="viewHtml(htmlValue)" style="padding-right: 27px;
+          ">Preview </button>
+          <button type="button" class="btn btn-success mt-2" ng-click="formatHtml(htmlValue)">Formatter</button>
+          <button type="button" class="btn btn-primary mt-2" ng-click="minifyHTML(htmlValue)"
+            style="padding-right: 40px">Minify</button>
+            <button type="button"  ng-if="displayTextArea" class="btn btn-primary mt-2" ng-click="copyContent()"
+            style="padding-right: 40px">Copy</button>
+        </div>
+
+        <div class="col-5 border" style="border-radius:5px; background-color:white; border:1px solid black">
+          <textarea name="" ng-if="displayTextArea" ng-model="formattedOut" id="formattedOutput" cols="67" rows="25"
+            value="hello" style="resize: none; border-radius: 5px; float: left; border-color: transparent; "></textarea>
+          <div id='htmlData'>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+  </main>
 </body>
+
 </html>
