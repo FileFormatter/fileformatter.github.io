@@ -2,6 +2,35 @@
     filter: brightness(0) invert(1)
 }
 
+.customcard-body {
+    color: var(--dashui-card-color);
+    flex: 1 1 auto;
+}
+
+.livecoinwatch-widget-3 svg {
+    display: none !important;
+}
+
+
+.cryptoTitle {
+        position: absolute;
+        margin-top: 24px;
+        margin-left: 67px;
+        color: var(--dashui-card-title-color);
+        align-items: center;
+        font-size: 1rem;
+    
+}
+
+.livecoinwatch-widget-3 div:nth-of-type(1) {
+    width: 337px !important;
+    content: "hello";
+}
+
+.livecoinwatch-widget-3  {
+    width: 348px !important;
+}
+
 .filter-invert-dark {
     filter: brightness(0) invert(0)
 }
