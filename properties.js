@@ -58,7 +58,7 @@ angular.module("myApp", []).controller("myCtrl", [
 
     $scope.ourServices = [
         { name: 'HTML Viewer', title: '', href: 'htmlViewer.html' },
-        { name: 'JS Complier', title: '', href: 'JScomplier.html' },
+        { name: 'JS Complier', title: '', href: 'jsComplier.html' },
         { name: 'Image Conversion', title: '', href: '#' },
         { name: 'JSON Conversion', title: '', href: '#' },
         { name: 'Iframe Checker', title: '', href: '#' },
